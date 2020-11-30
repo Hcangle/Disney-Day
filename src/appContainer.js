@@ -21,9 +21,18 @@ class AppContainer {
            attractionDiv.InnerText = attraction.name;
            yourDisneyDayDiv.appendChild(attractionDiv);
        })
-       randomAttractions.forEach()
-       fetch('localhost:3000/attractions/')
-   }
+       
+        randomAttractions.forEach(attraction => {
+          fetch(`http://localhost:3000/attractions/${randomAttractions[0].id}`, {
+             method: 'DELETE',
+             headers: {
+                 'Content-type': 'application/json'
+             }
+       })
+       .then(resp => resp.json())
+       .then(data => console.log(data))
+       })
+}
 
    getAttractions() {
        // make a fetch request to /attractions
@@ -33,7 +42,7 @@ class AppContainer {
        .then(data => {
            console.log(data)
            data.forEach(attraction => {
-               new Attraction(attraction.name, attraction.category)
+               new Attraction(attraction.id, attraction.name, attraction.category)
                if (!AppContainer.categories.map(category => category.name).includes(activity.category.name)) {
                    new Category(attraction.category.name)
                }
