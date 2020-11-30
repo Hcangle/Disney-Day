@@ -1,3 +1,6 @@
+Backend Repo => https://github.com/Hcangle/disney-day-api
+
+
 disney-day => where git repository is initialized
    README.md => instructions for app
    disney-day-api => rails portion; use rails generator  to make directory
