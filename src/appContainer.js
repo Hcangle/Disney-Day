@@ -6,31 +6,59 @@ class AppContainer {
    
    bindEventListeners() {
        const btn = document.getElementById('createYourDisneyDay');
-       btn.addEventListener('click', this.getRandomAttractions)
-   };
+       btn.addEventListener('click', () => this.getRandomAttractions())
+  
+       const newAttractionForm = document.getElementById('newAttraction');
+       newAttractionForm.addEventListener('submit', () => this.createAttraction);
+    };
+
+    createAttraction(event) {
+        event.preventDefault();
+        const form = document.getElementById('newAttraction')
+        const catIndexSelect = document.getElementById('categorySelect').selectedIndex
+        console.log(this)
+        fetch(`${this.url}/attractions`, {
+          method: 'POST',
+          headers: {
+              'Content-type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+               name: "Small World",
+               category: "Kids"
+          })
+        })
+        .then(resp => resp.json())
+        .then(data => cconsole.log(data))
+        .catch(err => console.log(err));
+    }
 
    getRandomAttractions(){
        let randomAttractions = [];
        AppContainer.categories.forEach(category => {
-           randomAttractions.push(Attractions.byCategory(category.name)[Math.floor(Math.random()*Attractions.byCategory(category.name).length)]);
+           randomAttractions.push(Attraction.byCategory(category.name)[Math.floor(Math.random()*Attraction.byCategory(category.name).length)]);
        });
 
-       new YourDisneyDay[randomAttractions]
+       new YourDisneyDay(randomAttractions)
        const yourDisneyDayDiv = document.getElementById('yourDisneyDay');
        AppContainer.yourDisneyDay.attractions.forEach(attraction => {
-           attractionDiv.InnerText = attraction.name;
+           const attractionDiv = document.createElement('div');
+           attractionDiv.innerText = attraction.name;
            yourDisneyDayDiv.appendChild(attractionDiv);
        })
        
+       //need to prevent db from locking when 3 successive delete requests are made.
+       //Solutions:
+            //setTimeout
+            // build special controller action. Fire a single fetch request to our api
+            // use another db?
         randomAttractions.forEach(attraction => {
-          fetch(`http://localhost:3000/attractions/${randomAttractions[0].id}`, {
-             method: 'DELETE',
-             headers: {
-                 'Content-type': 'application/json'
-             }
+          fetch(`${this.url}/${attraction.id}`, {
+             method: 'DELETE'
        })
        .then(resp => resp.json())
        .then(data => console.log(data))
+       .catch(err => console.log(err))
        })
 }
 
@@ -43,7 +71,7 @@ class AppContainer {
            console.log(data)
            data.forEach(attraction => {
                new Attraction(attraction.id, attraction.name, attraction.category)
-               if (!AppContainer.categories.map(category => category.name).includes(activity.category.name)) {
+               if (!AppContainer.categories.map(category => category.name).includes(attraction.category.name)) {
                    new Category(attraction.category.name)
                }
            });

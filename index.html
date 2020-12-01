@@ -5,17 +5,22 @@
     <title>Disney Day</title>
 </head>
 <body>
-    <select name="" id="thrilling">
-        <option value="">Rollercoaster </option>
-        <option value="">Water Ride </option>
-    </select>
-    <select name="" id="relaxing"></select>
-    <select name="" id="kids"></select>
+    <label for="thrilling">Thrilling</label>
+      <select name="" id="thrilling"></select>
+      <label for="relaxing">Relaxing</label>
+      <select name="" id="relaxing"></select>
+      <label for="kids">Kid Friendly</label>
+      <select name="" id="kids"></select>
     <button id="createYourDisneyDay">Create Your Disney Day!</button>
     <div id="yourDisneyDay"></div>
     <form id="newAttraction">
         <label for="">New Attraction</label>
         <input type="text" name="attraction">
+        <select name="categorySelect" id="categorySelect">
+            <option value="">Thrilling</option>
+            <option value="">Relaxing</option>
+            <option value="">Kid Friendly</option>
+        </select>
         <input type="submit">
     </form>
     <script src="src/category.js"></script>
