@@ -5,28 +5,33 @@
     <title>Disney Day</title>
 </head>
 <body>
-    <label for="thrilling">Thrilling</label>
-      <select name="" id="thrilling"></select>
-      <label for="relaxing">Relaxing</label>
-      <select name="" id="relaxing"></select>
-      <label for="kids">Kid Friendly</label>
-      <select name="" id="kids"></select>
-    <button id="createYourDisneyDay">Create Your Disney Day!</button>
-    <div id="yourDisneyDay"></div>
-    <form id="newAttraction">
+    <form id="yourDisneyDay">
+        <label for="ride">Rides</label>
+        <select name="" id="ride"></select>
+        <label for="dining">Dining</label>
+        <select name="" id="dining"></select>
+        <label for="show">Shows</label>
+        <select name="" id="show"></select>
+        <label for="photoop">Photo Ops</label>
+        <select name="" id="photoop"></select>
+        <label for="shopping">Shopping</label>
+        <select name="" id="shopping"></select>
+     <button id="createYourDisneyDay">Create Your Disney Day!</button>
+    </form>
+    
+    <!-- <form id="newAttraction">
         <label for="">New Attraction</label>
         <input type="text" name="attraction">
         <select name="categorySelect" id="categorySelect">
-            <option value="">Thrilling</option>
-            <option value="">Relaxing</option>
-            <option value="">Kid Friendly</option>
+            <option value="thrilling">Thrilling</option>
+            <option value="relaxing">Relaxing</option>
+            <option value="kids">Kid Friendly</option>
         </select>
-        <input type="submit">
-    </form>
+        <input value="Submit" type="submit">
+    </form> -->
     <script src="src/category.js"></script>
     <script src="src/yourDisneyDay.js"></script>
     <script src="src/attractions.js"></script>
-    <script src="src/appContainer.js"></script>
     <script src="src/index.js"></script>
 </body>
 </html>

@@ -3,12 +3,14 @@ class Attraction {
         this.name = name;
         this.category = category;
         this.id = id;
-        AppContainer.attractions.push(this);
+        Attraction.all.push(this);
     }
 
     static byCategory(categoryName) {
-        return AppContainer.attractions.filter(attraction => attraction.category.name === categoryName)
+        return Attraction.all.filter(attraction => attraction.category.name === categoryName)
     }
+
+    static all = []
 }
 //     constructor(obj) {
 //         this.name = obj.name 
