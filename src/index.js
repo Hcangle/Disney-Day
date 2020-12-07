@@ -2,72 +2,54 @@
 // app.getAttractions()
 // app.bindEventListeners()
 const categories = [];
-const yourDisneyDay = [];
+const yourDisneyDay = {};
 const url = "http://localhost:3000";
 
 // const newAttractionForm = document.getElementById('newAttraction');
 // newAttractionForm.addEventListener('submit',createAttraction);
+
 const newYourDisneyDayForm = document.getElementById("yourDisneyDay");
 newYourDisneyDayForm.addEventListener('submit',createYourDisneyDay);
-getAttractions()
+
+// const btn = document.getElementById("create YourDisneyDay");
+// btn.addEventListener('click',getRandomAttractions);
+
+getAttractions();
+//createYourDisneyDay();
 
 function createYourDisneyDay(e) {
-  console.log(e)
   e.preventDefault();
+  let data = { 
+    ride: e.target[0].value,
+    dining: e.target[1].value,
+    show: e.target[2].value,
+    photoop: e.target[3].value,
+    shopping: e.target[4].value}
+  
 
+  let day = new YourDisneyDay(data) 
+  console.log(YourDisneyDay.all)
+  day.renderDay()
+  
+  fetch(`${url}/disney_days`, {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+         user_id: data, //come back after creating user
+         day: data
+    })
+  })
+  .then(resp => resp.json())
+  .then(data => {
+      const { id, name, category } = data;
+      new Attraction(id, name, category)
+      renderAttractions()
+  })
+  .catch(err => console.log(err));
 }
-
-// function createAttraction(e) { 
-//     console.log(e)
-//     e.preventDefault();
-//     // const form = document.getElementById('newAttraction')
-//     const data = e.target;
-//     console.log("insisde event lisenter")
-// // POST Request (Create)   
-//     fetch(`${url}/attractions`, {
-//       method: 'POST',
-//       headers: {
-//           'Content-type': 'application/json',
-//           'Accept': 'application/json'
-//       },
-//       body: JSON.stringify({
-//            name: data.attraction.value,
-//            category: data.categorySelect.value
-//       })
-//     })
-//     .then(resp => resp.json())
-//     .then(data => {
-//         const { id, name, category } = data;
-//         new Attraction(id, name, category)
-//         renderAttractions()
-//     })
-//     .catch(err => console.log(err));
-// }
-
-// function getRandomAttractions(){
-//     let randomAttractions = [];
-//     categories.forEach(category => {
-//         randomAttractions.push(Attraction.byCategory(category.name)[Math.floor(Math.random()*Attraction.byCategory(category.name).length)]);
-//     });
-
-//     new YourDisneyDay(randomAttractions)
-//     const yourDisneyDayDiv = document.getElementById('yourDisneyDay');
-//     yourDisneyDay.attractions.forEach(attraction => {
-//         const attractionDiv = document.createElement('div');
-//         attractionDiv.innerText = attraction.name;
-//         yourDisneyDayDiv.appendChild(attractionDiv);
-//     })
-    
- // DELETE Request    
-//     randomAttractions.forEach(attraction => {
-//        fetch(`${url}/attractions/${attraction.id}`, {
-//           method: 'DELETE'
-//     })
-//     .then(resp => resp.json())
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err))
-//     })
-// }
 
 function getAttractions() {
     // make a fetch request to /attractions
@@ -100,7 +82,7 @@ diningSelect.innterHTML = "";
 showSelect.innterHTML = "";
 photoopSelect.innterHTML = "";
 shoppingSelect.innterHTML = "";
-console.log("HIT ME")
+//console.log("HIT ME")
 Attraction.all.forEach(attraction => {
     
     const option = document.createElement('option');
