@@ -1,7 +1,7 @@
 
 <html lang="en">
+
     
- 
 
 <head>
   <center>
@@ -12,12 +12,37 @@
     <link rel="stylesheet" href="src/bootstrap.min.css">
     <link rel="stylesheet" href="src/index.css">
 </head>
+
 <body>
-    <div class="jumbotron">
+  
+    <div  class="jumbotron">
         <h1 class="display-3">Disney Day</h1>
         <p class="lead">Let's build your perfect Disney day!</p>
         <hr class="my-4">
-        <form id="yourDisneyDay">
+      
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Login</title>
+            <link rel="stylesheet" href="login-page.css">
+            <script defer src="login-page.js"></script>
+          </head>
+          
+          <body>
+            <main id="main-holder">
+              <h1 id="login-header">Login</h1>
+              
+              <form id="login-form">
+                <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+                
+                <input type="submit" value="Login" id="login-form-submit">
+              </form>
+            
+            </main>
+          </body>
+        </form>
+
+        <form hidden="true" id="yourDisneyDay">
             <label for="ride" >Rides</label>
             <select name="" id="ride"></select>
             <label for="dining">Dining</label>
@@ -224,7 +249,8 @@
     // ]]>
     </script>
 
-<iframe style="display:none;" width="560" height="315" src="https://www.youtube.com/embed/G6p7rP5Mcjk?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!-- <iframe style="display:none;"width="560" height="315" src="https://www.youtube.com/embed/G6p7rP5Mcjk?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
     
     
 </center>

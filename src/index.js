@@ -17,6 +17,34 @@ newYourDisneyDayForm.addEventListener('submit',createYourDisneyDay);
 getAttractions();
 //createYourDisneyDay();
 
+const loginForm = document.getElementById("login-form");
+
+
+loginButton.addEventListener("click", (e) => {
+   
+    const username = loginForm.username.value;
+    fetch(`${url}/users`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+             username: username
+        })
+      })
+
+      .then(resp => resp.json())
+      .then(info => { 
+
+          newYourDisneyDayForm.style.display="block"
+          // keep working on this
+          
+      })
+      
+})
+
+
 function createYourDisneyDay(e) {
   e.preventDefault();
   let data = { 
@@ -38,7 +66,7 @@ function createYourDisneyDay(e) {
         'Accept': 'application/json'
     },
     body: JSON.stringify({
-         user_id: data, //come back after creating user
+         user_id: info, //come back after creating user
          day: data
     })
   })
