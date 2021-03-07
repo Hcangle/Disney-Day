@@ -11,7 +11,9 @@ class Attraction {
     }
 
     static all = []
+    
 }
+
 //     constructor(obj) {
 //         this.name = obj.name 
 //         this.permalink = obj.permalink

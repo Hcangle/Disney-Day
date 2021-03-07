@@ -5,23 +5,23 @@ const categories = [];
 const yourDisneyDay = {};
 const url = "http://localhost:3000";
 
-// const newAttractionForm = document.getElementById('newAttraction');
-// newAttractionForm.addEventListener('submit',createAttraction);
 
 const newYourDisneyDayForm = document.getElementById("yourDisneyDay");
-newYourDisneyDayForm.addEventListener('submit',createYourDisneyDay);
+newYourDisneyDayForm.addEventListener('submit', createYourDisneyDay);
 
+// const newAttractionForm = document.getElementById('newAttraction');
+// newAttractionForm.addEventListener('submit',createAttraction);
 // const btn = document.getElementById("create YourDisneyDay");
 // btn.addEventListener('click',getRandomAttractions);
 
 getAttractions();
-//createYourDisneyDay();
+// createYourDisneyDay();
 
 const loginForm = document.getElementById("login-form");
 
 
-loginButton.addEventListener("click", (e) => {
-   
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefualt()
     const username = loginForm.username.value;
     fetch(`${url}/users`, {
         method: 'POST',
@@ -38,11 +38,15 @@ loginButton.addEventListener("click", (e) => {
       .then(info => { 
 
           newYourDisneyDayForm.style.display="block"
-          // keep working on this
+          // continue from here
           
       })
       
 })
+
+// function newYourDisneyDay(){
+    
+// }
 
 
 function createYourDisneyDay(e) {
@@ -55,7 +59,7 @@ function createYourDisneyDay(e) {
     shopping: e.target[4].value}
   
 
-  let day = new YourDisneyDay(data) 
+  let day = new YourDisneyDay(data) //newYourDisneyDay ?
   console.log(YourDisneyDay.all)
   day.renderDay()
   
@@ -66,7 +70,7 @@ function createYourDisneyDay(e) {
         'Accept': 'application/json'
     },
     body: JSON.stringify({
-         user_id: info, //come back after creating user
+         user_id: info.user_id, //come back after creating user
          day: data
     })
   })
@@ -91,7 +95,6 @@ function getAttractions() {
                 new Category(attraction.category.name)
             }
         });
-        // call renderAttractions
         renderAttractions();
     })
 
@@ -110,7 +113,6 @@ diningSelect.innterHTML = "";
 showSelect.innterHTML = "";
 photoopSelect.innterHTML = "";
 shoppingSelect.innterHTML = "";
-//console.log("HIT ME")
 Attraction.all.forEach(attraction => {
     
     const option = document.createElement('option');
