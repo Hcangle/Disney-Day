@@ -8,6 +8,7 @@ class Attraction {
 
     static byCategory(categoryName) {
         return Attraction.all.filter(attraction => attraction.category.name === categoryName)
+        //make fet h call to attractions pge to get all attractions 
     }
 
     static all = []

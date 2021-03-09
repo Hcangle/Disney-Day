@@ -1,7 +1,10 @@
-class Users {
-constructor(info) {
-    this.user_id = info.user_id
+class User {
+constructor(userObj) {
+    this.id = userObj.id;
+
+    User.all.push(this)
 
 }
 
+static all = []
 }

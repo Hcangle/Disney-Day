@@ -1,56 +1,85 @@
 // const app = new AppContainer
 // app.getAttractions()
 // app.bindEventListeners()
-const categories = [];
-const yourDisneyDay = {};
-const url = "http://localhost:3000";
-
-
-const newYourDisneyDayForm = document.getElementById("yourDisneyDay");
-newYourDisneyDayForm.addEventListener('submit', createYourDisneyDay);
 
 // const newAttractionForm = document.getElementById('newAttraction');
 // newAttractionForm.addEventListener('submit',createAttraction);
 // const btn = document.getElementById("create YourDisneyDay");
 // btn.addEventListener('click',getRandomAttractions);
 
-getAttractions();
-// createYourDisneyDay();
+const baseURL = "http://localhost:3000/"
+let currentUser
+const userAdapter = new UserAdapter(baseURL)
+const categories = [];
+const yourDisneyDay = {};
+const mainHolder = document.getElementById("main-holder");
+// const YourDisneyDayForm = document.getElementById("yourDisneyDay");
+// YourDisneyDayForm.addEventListener('submit', createYourDisneyDay) 
 
 const loginForm = document.getElementById("login-form");
+document.addEventListener("DOMContentLoaded", init)
+// function newUser 
+// event listener -> preventdefault
+// newUser.nameofthefetchcall
+// second function, which will be the  create didney day form
+// to save the user info
 
+function init() {
+   
+    newUser()
 
-loginForm.addEventListener("submit", (e) => {
-    e.preventDefualt()
-    const username = loginForm.username.value;
-    fetch(`${url}/users`, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-             username: username
-        })
-      })
+}
 
-      .then(resp => resp.json())
-      .then(info => { 
+//create function to call on categories in attractions.js
 
-          newYourDisneyDayForm.style.display="block"
-          // continue from here
-          
-      })
-      
-})
-
-// function newYourDisneyDay(){
+function disneyCategories(){
+    //fetch get index for attractions
     
-// }
+    byCategory()
+}
 
+function newUser() {
+    loginForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let info = {
+        user: e.target[0].value
+    }
+        userAdapter.loginUser(info)
+     
+        
+    });
+}
+    
+function newYourDisneyDay(){
+    mainHolder.innerHTML= `<div>
+    <form id="yourDisneyDay">
+            <label for="ride" >Rides</label>
+            <select name="" id="ride"></select>
+            <label for="dining">Dining</label>
+            <select name="" id="dining"></select>
+            <label for="show">Shows</label>
+            <select name="" id="show"></select>
+            <label for="photoop">Photo Ops</label>
+            <select name="" id="photoop"></select>
+            <label for="shopping">Shopping</label>
+            <select name="" id="shopping"></select>
+         <button id="createYourDisneyDay" class="btn btn-secondary">Create Your Disney Day!</button>
+    
+        </form>
+    </div>`
+
+    document.getElementById("yourDisneyDay").addEventListener("submit", createYourDisneyDay)
+    
+
+}
+
+//create a function that creates a form to create your disney day
+//form will have even listener when clocked it calls on createyourdisneyday
+
+ 
 
 function createYourDisneyDay(e) {
-  e.preventDefault();
+    e.preventDefault()
   let data = { 
     ride: e.target[0].value,
     dining: e.target[1].value,
@@ -59,18 +88,18 @@ function createYourDisneyDay(e) {
     shopping: e.target[4].value}
   
 
-  let day = new YourDisneyDay(data) //newYourDisneyDay ?
+  let day = new YourDisneyDay(data) 
   console.log(YourDisneyDay.all)
   day.renderDay()
   
-  fetch(`${url}/disney_days`, {
+  fetch(this.baseURL+"/disney_days", {
     method: 'POST',
     headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json'
     },
     body: JSON.stringify({
-         user_id: info.user_id, //come back after creating user
+         id: userObj.id, //come back after creating user
          day: data
     })
   })
@@ -85,7 +114,7 @@ function createYourDisneyDay(e) {
 
 function getAttractions() {
     // make a fetch request to /attractions
-    fetch(url + '/attractions')
+    fetch(this.baseURL+"/attractions")
     .then(resp => resp.json())
     // populate attraction and category properties with the returned data
     .then(data => {
@@ -140,7 +169,7 @@ Attraction.all.forEach(attraction => {
 
 
 
-// document.addEventListender("DomContentLoaded", init)
+
 
 // function(init) {
 //     fetch("https://touringplans.com/magic-kingdom/attractions.json")
